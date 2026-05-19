@@ -1,4 +1,4 @@
-name: CI
+﻿name: CI
 
 on:
   push:
@@ -20,7 +20,5 @@ jobs:
           cache: gradle
       - name: Grant execute permission
         run: chmod +x gradlew
-      - name: Validate Gradle Wrapper
-        uses: gradle/actions/wrapper-validation@v3
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace

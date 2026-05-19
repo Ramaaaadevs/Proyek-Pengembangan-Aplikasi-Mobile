@@ -1,0 +1,31 @@
+CREATE TABLE TripEntity (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    destination TEXT NOT NULL,
+    start_date TEXT NOT NULL,
+    end_date TEXT NOT NULL,
+    budget REAL NOT NULL,
+    created_at INTEGER NOT NULL
+);
+
+getAllTrips:
+SELECT *
+FROM TripEntity
+ORDER BY created_at DESC;
+
+getTripById:
+SELECT *
+FROM TripEntity
+WHERE id = :id;
+
+insertTrip:
+INSERT INTO TripEntity(destination, start_date, end_date, budget, created_at)
+VALUES (?, ?, ?, ?, ?);
+
+updateTrip:
+UPDATE TripEntity
+SET destination = ?, start_date = ?, end_date = ?, budget = ?
+WHERE id = ?;
+
+deleteTrip:
+DELETE FROM TripEntity
+WHERE id = :id;
