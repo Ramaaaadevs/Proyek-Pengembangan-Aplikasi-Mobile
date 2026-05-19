@@ -1,12 +1,12 @@
 package com.example.noteai
 
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.example.noteai.presentation.navigation.AppNavHost
+import com.example.noteai.presentation.theme.NoteAITheme
 
 @Composable
 fun App() {
-    MaterialTheme {
-        Text("TripMate siap dibangun!")
+    NoteAITheme {
+        AppNavHost()
     }
 }
