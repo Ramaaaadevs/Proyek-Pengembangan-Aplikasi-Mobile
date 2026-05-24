@@ -58,28 +58,42 @@ class AIRepositoryImpl(
         budget: Double,
         interests: String
     ): Result<String> {
+        val budgetFormatted = budget.toLong().toString()
+            .reversed().chunked(3).joinToString(".").reversed()
+
         val prompt = """
-            Buatkan rencana perjalanan (itinerary) ke $destination selama $duration hari.
-            Budget: Rp ${budget.toLong()}
-            Minat/preferensi: $interests
+            Destinasi: $destination
+            Durasi: $duration hari
+            Budget: Rp $budgetFormatted
+            Minat: $interests
+        """.trimIndent()
+
+        val systemPrompt = """
+            Kamu adalah travel planner. Buat itinerary SINGKAT dan PADAT.
             
-            Format output:
-            Hari 1:
-            - Pagi: [aktivitas]
-            - Siang: [aktivitas + rekomendasi makan]
-            - Sore: [aktivitas]
-            - Malam: [aktivitas + rekomendasi makan]
-            - Estimasi biaya hari ini: Rp [angka]
+            ATURAN KETAT:
+            - Langsung tulis itinerary, TANPA intro/basa-basi
+            - Format wajib per hari:
             
-            (ulangi untuk setiap hari)
+            HARI 1
+            Pagi: [aktivitas] - Rp [biaya]
+            Siang: [makan di mana] - Rp [biaya]
+            Sore: [aktivitas] - Rp [biaya]
+            Malam: [makan di mana] - Rp [biaya]
+            Total: Rp [total hari ini]
             
-            Total estimasi biaya: Rp [angka]
-            Tips: [2-3 tips berguna]
+            (ulangi untuk tiap hari)
+            
+            TOTAL TRIP: Rp [angka]
+            TIPS: [maks 2 tips singkat]
+            
+            - JANGAN tulis asumsi, penjelasan, atau catatan tambahan
+            - Langsung mulai dari HARI 1
         """.trimIndent()
 
         return geminiService.generateContent(
             prompt = prompt,
-            systemPrompt = "Kamu adalah travel planner profesional Indonesia. Buat itinerary yang detail, realistis, dan sesuai budget. Gunakan Bahasa Indonesia."
+            systemPrompt = systemPrompt
         )
     }
 }
