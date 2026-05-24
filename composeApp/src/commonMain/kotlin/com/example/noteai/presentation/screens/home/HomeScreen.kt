@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
@@ -50,6 +51,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun HomeScreen(
     onNavigateToAdd: () -> Unit,
     onNavigateToDetail: (Long) -> Unit,
+    onNavigateToAI: () -> Unit,
     viewModel: TripViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -60,6 +62,11 @@ fun HomeScreen(
         topBar = {
             TopAppBar(
                 title = { Text("TripMate ✈️", fontWeight = FontWeight.Bold) },
+                actions = {
+                    IconButton(onClick = onNavigateToAI) {
+                        Icon(Icons.Default.AutoAwesome, contentDescription = "AI Itinerary")
+                    }
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer
                 )
@@ -76,7 +83,6 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            // Search Bar
             OutlinedTextField(
                 value = searchQuery,
                 onValueChange = { viewModel.onSearchQueryChange(it) },
