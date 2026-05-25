@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import com.example.tripmate.domain.model.Trip
 import org.koin.compose.viewmodel.koinViewModel
 import androidx.compose.material.icons.filled.BarChart
+import androidx.compose.material.icons.filled.Person
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,6 +55,7 @@ fun HomeScreen(
     onNavigateToDetail: (Long) -> Unit,
     onNavigateToAI: () -> Unit,
     onNavigateToStats: () -> Unit,
+    onNavigateToProfile: () -> Unit,
     viewModel: TripViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -65,6 +67,9 @@ fun HomeScreen(
             TopAppBar(
                 title = { Text("TripMate ✈️", fontWeight = FontWeight.Bold) },
                 actions = {
+                    IconButton(onClick = onNavigateToProfile) {
+                        Icon(Icons.Default.Person, contentDescription = "Profil")
+                    }
                     IconButton(onClick = onNavigateToStats) {
                         Icon(Icons.Default.BarChart, contentDescription = "Statistik")
                     }
