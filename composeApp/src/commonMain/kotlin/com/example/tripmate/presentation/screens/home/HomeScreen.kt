@@ -45,6 +45,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.tripmate.domain.model.Trip
 import org.koin.compose.viewmodel.koinViewModel
+import androidx.compose.material.icons.filled.BarChart
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,6 +53,7 @@ fun HomeScreen(
     onNavigateToAdd: () -> Unit,
     onNavigateToDetail: (Long) -> Unit,
     onNavigateToAI: () -> Unit,
+    onNavigateToStats: () -> Unit,
     viewModel: TripViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -63,6 +65,9 @@ fun HomeScreen(
             TopAppBar(
                 title = { Text("TripMate ✈️", fontWeight = FontWeight.Bold) },
                 actions = {
+                    IconButton(onClick = onNavigateToStats) {
+                        Icon(Icons.Default.BarChart, contentDescription = "Statistik")
+                    }
                     IconButton(onClick = onNavigateToAI) {
                         Icon(Icons.Default.AutoAwesome, contentDescription = "AI Itinerary")
                     }
@@ -164,10 +169,19 @@ fun HomeScreen(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = state.message,
-                            color = MaterialTheme.colorScheme.error
-                        )
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                text = "⚠️ ${state.message}",
+                                color = MaterialTheme.colorScheme.error,
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                            androidx.compose.material3.Button(
+                                onClick = { viewModel.retry() }
+                            ) {
+                                Text("Coba Lagi")
+                            }
+                        }
                     }
                 }
             }
