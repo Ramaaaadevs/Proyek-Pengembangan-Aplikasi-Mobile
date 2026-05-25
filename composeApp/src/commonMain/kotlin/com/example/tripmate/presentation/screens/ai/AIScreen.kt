@@ -144,6 +144,8 @@ fun AIScreen(
                 }
 
                 is AIUiState.Success -> {
+                    val savedToTrip by viewModel.savedToTrip.collectAsState()
+
                     Card(
                         modifier = Modifier.fillMaxWidth(),
                         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
@@ -163,6 +165,22 @@ fun AIScreen(
                                 style = MaterialTheme.typography.bodyMedium
                             )
                             Spacer(modifier = Modifier.height(8.dp))
+                            if (savedToTrip) {
+                                Text(
+                                    "✅ Berhasil disimpan ke daftar trip!",
+                                    color = MaterialTheme.colorScheme.primary,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    fontWeight = FontWeight.Medium
+                                )
+                            } else {
+                                Button(
+                                    onClick = { viewModel.saveAsTrip() },
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Text("💾 Simpan sebagai Trip")
+                                }
+                            }
+                            Spacer(modifier = Modifier.height(4.dp))
                             TextButton(onClick = { viewModel.reset() }) {
                                 Text("Buat Itinerary Baru")
                             }
