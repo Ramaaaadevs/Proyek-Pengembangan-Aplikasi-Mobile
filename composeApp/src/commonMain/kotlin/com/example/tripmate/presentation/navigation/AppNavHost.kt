@@ -12,6 +12,7 @@ import com.example.tripmate.presentation.screens.ai.AIScreen
 import com.example.tripmate.presentation.screens.detail.TripDetailScreen
 import com.example.tripmate.presentation.screens.home.HomeScreen
 import com.example.tripmate.presentation.screens.statistics.TripStatisticsScreen
+import com.example.tripmate.presentation.screens.profile.ProfileScreen
 
 @Composable
 fun AppNavHost(
@@ -28,7 +29,8 @@ fun AppNavHost(
                     navController.navigate(Screen.DetailTrip.createRoute(tripId))
                 },
                 onNavigateToAI = { navController.navigate(Screen.AIScreen.route) },
-                onNavigateToStats = { navController.navigate(Screen.Statistics.route) }
+                onNavigateToStats = { navController.navigate(Screen.Statistics.route) },
+                onNavigateToProfile = { navController.navigate(Screen.Profile.route) }
             )
         }
 
@@ -68,6 +70,10 @@ fun AppNavHost(
 
         composable(Screen.Statistics.route) {
             TripStatisticsScreen(onNavigateBack = { navController.popBackStack() })
+        }
+
+        composable(Screen.Profile.route) {
+            ProfileScreen(onNavigateBack = { navController.popBackStack() })
         }
     }
 }
