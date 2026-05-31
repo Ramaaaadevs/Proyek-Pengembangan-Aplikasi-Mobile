@@ -52,7 +52,7 @@ fun AIScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("✨ AI Itinerary Generator", fontWeight = FontWeight.Bold) },
+                title = { Text("AI Itinerary Generator", fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Kembali")
@@ -129,7 +129,7 @@ fun AIScreen(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = uiState !is AIUiState.Loading
             ) {
-                Text(if (uiState is AIUiState.Loading) "Membuat itinerary..." else "🗺️ Generate Itinerary")
+                Text(if (uiState is AIUiState.Loading) "Membuat itinerary..." else "Generate Itinerary")
             }
 
             when (val state = uiState) {
@@ -158,7 +158,7 @@ fun AIScreen(
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text(
-                                "✅ Itinerary Siap!",
+                                "Itinerary Siap",
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold
                             )
@@ -170,7 +170,7 @@ fun AIScreen(
                             Spacer(modifier = Modifier.height(8.dp))
                             if (savedToTrip) {
                                 Text(
-                                    "✅ Berhasil disimpan ke daftar trip!",
+                                    "Berhasil disimpan ke daftar trip",
                                     color = MaterialTheme.colorScheme.primary,
                                     style = MaterialTheme.typography.bodySmall,
                                     fontWeight = FontWeight.Medium
@@ -180,7 +180,7 @@ fun AIScreen(
                                     onClick = { viewModel.saveAsTrip() },
                                     modifier = Modifier.fillMaxWidth()
                                 ) {
-                                    Text("💾 Simpan sebagai Trip")
+                                    Text("Simpan sebagai Trip")
                                 }
                             }
                             Spacer(modifier = Modifier.height(4.dp))
@@ -200,7 +200,7 @@ fun AIScreen(
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text(
-                                "❌ ${state.message}",
+                                "${state.message}",
                                 color = MaterialTheme.colorScheme.onErrorContainer,
                                 style = MaterialTheme.typography.bodyMedium
                             )

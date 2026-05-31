@@ -22,11 +22,13 @@ import com.example.tripmate.presentation.screens.addedit.AddEditTripScreen
 import com.example.tripmate.presentation.screens.ai.AIScreen
 import com.example.tripmate.presentation.screens.detail.TripDetailScreen
 import com.example.tripmate.presentation.screens.home.HomeScreen
+import com.example.tripmate.presentation.screens.splash.SplashScreen
 import com.example.tripmate.presentation.screens.profile.ProfileScreen
 import com.example.tripmate.presentation.screens.statistics.TripStatisticsScreen
 
 // Route-route yang TIDAK menampilkan bottom navbar
 private val routesWithoutBottomBar = setOf(
+    Screen.Splash.route,
     Screen.AddTrip.route,
     Screen.DetailTrip.route,
     Screen.EditTrip.route
@@ -80,10 +82,20 @@ fun AppNavHost(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Home.route,
+            startDestination = Screen.Splash.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(Screen.Home.route) {
+            composable(Screen.Splash.route) {
+            SplashScreen(
+                onFinished = {
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Splash.route) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable(Screen.Home.route) {
                 HomeScreen(
                     onNavigateToAdd = { navController.navigate(Screen.AddTrip.route) },
                     onNavigateToDetail = { tripId ->
