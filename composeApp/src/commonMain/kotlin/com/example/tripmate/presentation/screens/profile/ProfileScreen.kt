@@ -44,14 +44,11 @@ fun ProfileScreen(
         topBar = {
             TopAppBar(
                 title = { Text("⚙️ Pengaturan", fontWeight = FontWeight.Bold) },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Kembali")
-                    }
-                },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
-                )
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary
+                ),
+                windowInsets = androidx.compose.foundation.layout.WindowInsets(0)
             )
         }
     ) { padding ->

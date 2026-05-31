@@ -14,7 +14,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
@@ -45,17 +44,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.tripmate.domain.model.Trip
 import org.koin.compose.viewmodel.koinViewModel
-import androidx.compose.material.icons.filled.BarChart
-import androidx.compose.material.icons.filled.Person
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     onNavigateToAdd: () -> Unit,
     onNavigateToDetail: (Long) -> Unit,
-    onNavigateToAI: () -> Unit,
-    onNavigateToStats: () -> Unit,
-    onNavigateToProfile: () -> Unit,
     viewModel: TripViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -66,20 +60,11 @@ fun HomeScreen(
         topBar = {
             TopAppBar(
                 title = { Text("TripMate ✈️", fontWeight = FontWeight.Bold) },
-                actions = {
-                    IconButton(onClick = onNavigateToProfile) {
-                        Icon(Icons.Default.Person, contentDescription = "Profil")
-                    }
-                    IconButton(onClick = onNavigateToStats) {
-                        Icon(Icons.Default.BarChart, contentDescription = "Statistik")
-                    }
-                    IconButton(onClick = onNavigateToAI) {
-                        Icon(Icons.Default.AutoAwesome, contentDescription = "AI Itinerary")
-                    }
-                },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
-                )
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary
+                ),
+                windowInsets = androidx.compose.foundation.layout.WindowInsets(0)
             )
         },
         floatingActionButton = {
