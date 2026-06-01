@@ -36,7 +36,9 @@ private val routesWithoutBottomBar = setOf(
 
 @Composable
 fun AppNavHost(
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    isDarkMode: Boolean = false,
+    onToggleDarkMode: (Boolean) -> Unit = {}
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -145,7 +147,11 @@ fun AppNavHost(
             }
 
             composable(Screen.Profile.route) {
-                ProfileScreen(onNavigateBack = { navController.popBackStack() })
+                ProfileScreen(
+                    onNavigateBack = { navController.popBackStack() },
+                    isDarkMode = isDarkMode,
+                    onToggleDarkMode = onToggleDarkMode
+                )
             }
         }
     }

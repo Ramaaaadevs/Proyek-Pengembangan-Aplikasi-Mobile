@@ -38,8 +38,11 @@ import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreen(onNavigateBack: () -> Unit) {
-    var darkMode by remember { mutableStateOf(false) }
+fun ProfileScreen(
+    onNavigateBack: () -> Unit,
+    isDarkMode: Boolean = false,
+    onToggleDarkMode: (Boolean) -> Unit = {}
+) {
     var notificationsEnabled by remember { mutableStateOf(true) }
 
     Scaffold(
@@ -100,7 +103,7 @@ fun ProfileScreen(onNavigateBack: () -> Unit) {
                         color = MaterialTheme.colorScheme.secondary,
                         letterSpacing = 0.8.sp)
                     Spacer(Modifier.height(10.dp))
-                    SettingRow("Dark Mode", "Tampilan gelap", darkMode) { darkMode = it }
+                    SettingRow("Dark Mode", "Tampilan gelap", isDarkMode) { onToggleDarkMode(it) }
                     HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp),
                         color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f))
                     SettingRow("Notifikasi", "Pengingat perjalanan",
