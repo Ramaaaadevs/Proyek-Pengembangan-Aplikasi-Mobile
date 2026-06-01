@@ -139,18 +139,16 @@ fun HomeScreen(
                 is HomeUiState.Empty -> {
                     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            // Placeholder pesawat — nanti ganti dengan Image()
-                            Box(
-                                modifier = Modifier
-                                    .height(120.dp)
-                                    .padding(bottom = 16.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text("[ foto pesawat ]",
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    fontSize = 14.sp)
-                            }
-                            val emptyText = if (searchQuery.isNotEmpty()) "Tidak ada trip untuk \"${searchQuery}\"" else "Belum ada trip"
+                            Text(
+                                text = "✈",
+                                fontSize = 72.sp,
+                                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)
+                            )
+                            Spacer(Modifier.height(16.dp))
+                            val emptyText = if (searchQuery.isNotEmpty())
+                                "Tidak ada trip untuk \"${searchQuery}\""
+                            else
+                                "Belum ada trip"
                             Text(
                                 text = emptyText,
                                 style = MaterialTheme.typography.titleMedium,
