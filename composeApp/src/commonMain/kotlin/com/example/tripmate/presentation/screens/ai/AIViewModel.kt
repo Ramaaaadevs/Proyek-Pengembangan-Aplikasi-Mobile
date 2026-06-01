@@ -9,6 +9,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.plus
 
 sealed interface AIUiState {
     data object Idle : AIUiState
@@ -72,8 +77,13 @@ class AIViewModel(
 
         viewModelScope.launch {
             try {
-                val startDate = "2025-01-01"
-                val endDate = "2025-01-${String.format("%02d", dur)}"
+                val today = Clock.System.now()
+                    .toLocalDateTime(TimeZone.currentSystemDefault())
+                    .date
+                val endLocalDate = today.plus(dur, DateTimeUnit.DAY)
+                val startDate = today.toString()
+                val endDate = endLocalDate.toString()
+
                 tripRepository.insertTrip(
                     Trip(
                         destination = dest,
