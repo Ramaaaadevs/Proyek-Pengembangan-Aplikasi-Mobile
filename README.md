@@ -64,22 +64,39 @@ Berbeda dari aplikasi travel lainnya yang berfokus pada rekomendasi otomatis, Tr
 
 Menggunakan **Clean Architecture + MVVM** sesuai panduan mata kuliah.
 ┌─────────────────────────────────────────────────┐
+
 │              PRESENTATION LAYER                  │
+
 │   Screens (Composable) ◄──► ViewModel           │
+
 │             (StateFlow / UDF Pattern)            │
+
 └────────────────────┬────────────────────────────┘
-                     │
+
+│
+
 ┌────────────────────▼────────────────────────────┐
+
 │               DOMAIN LAYER                       │
-│      Models ◄──► Repository Interfaces          │
+
+│   Models ◄──► Repository Interfaces             │
+
 │           (Pure Kotlin, no framework)            │
+
 └────────────────────┬────────────────────────────┘
-                     │
+
+│
+
 ┌────────────────────▼────────────────────────────┐
+
 │                DATA LAYER                        │
+
 │   Repository Impl                               │
-│  ├── Remote: Ktor + Gemini API                 │
+
+│   ├── Remote: Ktor + Gemini API                 │
+
 │   └── Local:  SQLDelight (trip, packing list)   │
+
 └─────────────────────────────────────────────────┘
 
 ### 📁 Struktur Folder
